@@ -1,0 +1,63 @@
+{
+  "name": "@cerberauth/stubidp-playwright",
+  "version": "0.1.0",
+  "description": "Playwright helper to drive stubidp interaction UI in E2E tests",
+  "type": "module",
+  "license": "MIT",
+  "author": "CerberAuth",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cerberauth/stubidp-playwright.git"
+  },
+  "keywords": [
+    "playwright",
+    "oidc",
+    "stubidp",
+    "testing",
+    "e2e"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test:e2e": "playwright test -c test/playwright.config.ts",
+    "test:e2e:install": "playwright install --with-deps chromium",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "@playwright/test": ">=1.40.0 <2"
+  },
+  "devDependencies": {
+    "@cerberauth/stubidp": "^0.3.1",
+    "@playwright/test": "^1.61.1",
+    "@types/express": "^5",
+    "@types/node": "^24",
+    "@typescript-eslint/eslint-plugin": "^8",
+    "@typescript-eslint/parser": "^8",
+    "eslint": "^9",
+    "express": "^5",
+    "prettier": "^3",
+    "tsup": "^8",
+    "tsx": "^4",
+    "typescript": "^5"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
