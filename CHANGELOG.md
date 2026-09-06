@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/cerberauth/stubidp-playwright/compare/stubidp-playwright-v0.1.0...stubidp-playwright-v0.1.1) (2026-09-06)
+
+
+### Bug Fixes
+
+* release access public ([52a0d15](https://github.com/cerberauth/stubidp-playwright/commit/52a0d154816cd0d3d13585ab4452dc0412464308))
+
 ## [0.1.0](https://github.com/cerberauth/stubidp-playwright/compare/stubidp-playwright-v0.0.1...stubidp-playwright-v0.1.0) (2026-09-06)
 
 
