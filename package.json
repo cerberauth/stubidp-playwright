@@ -1,7 +1,7 @@
 {
   "name": "@cerberauth/stubidp-playwright",
   "description": "Playwright helper to drive stubidp interaction UI in E2E tests",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "cerberauth",
   "type": "module",
   "license": "MIT",
