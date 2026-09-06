@@ -1,24 +1,20 @@
 name: Publish
 
 on:
-  push:
-    tags:
-      - 'v*.*.*'
+  workflow_run:
+    workflows: [Release Please]
+    types: [completed]
   workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Existing tag to publish from (e.g. v1.2.3)'
-        required: true
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
-
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   publish:
+    name: Publish npm package
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success' }}
 
     permissions:
       contents: read
@@ -34,30 +30,26 @@ jobs:
         with:
           cache: npm
           node-version-file: '.nvmrc'
+          registry-url: https://registry.npmjs.org
 
       - name: Install dependencies 👨🏻‍💻
         run: npm ci
-
-      - name: Set version
-        env:
-          TAG: ${{ inputs.tag || github.ref_name }}
-        run: npm version "${TAG#v}" --no-git-tag-version
 
       - name: Build TypeScript 🔨
         run: npm run build
 
       - name: Publish to npm 📦
-        run: npm publish --provenance
+        run: npm publish --provenance --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Setup node env for GitHub Packages 🏗
         uses: actions/setup-node@v6
         with:
-          node-version-file: .nvmrc
+          node-version-file: '.nvmrc'
           registry-url: https://npm.pkg.github.com
 
       - name: Publish to GitHub Packages 📦
-        run: npm publish --provenance
+        run: npm publish --provenance --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

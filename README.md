@@ -124,3 +124,7 @@ The helper is coupled to stubidp's rendered markup. Stable anchors (current):
 When stubidp adds `data-testid` attributes (`stubidp-login-form`, `stubidp-username`, etc.) the helper will prefer them automatically via a fallback chain — no consumer change needed.
 
 **Minimum stubidp version:** `0.0.3` (current stable selectors). `data-testid` support: TBD in a follow-up PR.
+
+## License
+
+This repository is licensed under the MIT License @ [CerberAuth](https://www.cerberauth.com/).
