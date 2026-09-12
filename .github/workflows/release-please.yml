@@ -11,12 +11,24 @@ permissions:
 
 jobs:
   release-please:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
+
     steps:
       - uses: googleapis/release-please-action@v5
         id: release
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+      - name: Save release outputs 💾
+        run: |
+          mkdir -p release-outputs
+          echo '${{ steps.release.outputs.release_created }}' > release-outputs/release_created
+
+      - name: Upload release outputs 📤
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-outputs
+          path: release-outputs

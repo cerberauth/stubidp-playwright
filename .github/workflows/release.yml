@@ -10,11 +10,40 @@ permissions:
   contents: read
 
 jobs:
-  publish:
-    name: Publish npm package
-    runs-on: ubuntu-latest
+  check-release:
+    name: Check if a release was created
+    runs-on: ubuntu-slim
     if: ${{ github.event_name == 'workflow_dispatch' ||
       github.event.workflow_run.conclusion == 'success' }}
+    outputs:
+      release_created: ${{ steps.check.outputs.release_created }}
+
+    permissions:
+      actions: read
+
+    steps:
+      - name: Download release outputs 📥
+        if: ${{ github.event_name == 'workflow_run' }}
+        uses: actions/download-artifact@v8
+        with:
+          name: release-outputs
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check release outputs 🔎
+        id: check
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "release_created=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "release_created=$(cat release_created 2>/dev/null || echo false)" >> "$GITHUB_OUTPUT"
+          fi
+
+  publish:
+    name: Publish npm package
+    needs: check-release
+    if: ${{ needs.check-release.outputs.release_created == 'true' }}
+    runs-on: ubuntu-latest
 
     permissions:
       contents: read
