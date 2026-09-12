@@ -24,7 +24,7 @@ export default defineConfig({
   webServer: [
     {
       // No trailing slash: the app registers window.location.origin as its redirect_uri.
-      command: `STUBIDP_PORT=${STUBIDP_PORT} ../../node_modules/.bin/stubidp --client-id ${CLIENT_ID} --client-secret ${CLIENT_SECRET} --redirect-uri http://localhost:${RP_PORT} --post-logout-redirect-uri http://localhost:${RP_PORT} --rate-limit-disabled`,
+      command: `STUBIDP_PORT=${STUBIDP_PORT} node_modules/.bin/stubidp --client-id ${CLIENT_ID} --client-secret ${CLIENT_SECRET} --redirect-uri http://localhost:${RP_PORT} --post-logout-redirect-uri http://localhost:${RP_PORT} --rate-limit-disabled`,
       cwd: RP_DIR,
       url: `${STUBIDP_ISSUER}/.well-known/openid-configuration`,
       reuseExistingServer: !process.env['CI'],
