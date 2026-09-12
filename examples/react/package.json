@@ -1,0 +1,33 @@
+{
+  "name": "stubidp-playwright-react-example",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5173 --strictPort",
+    "test:e2e": "playwright test -c e2e/playwright.config.ts",
+    "test:e2e:install": "playwright install --with-deps chromium",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "oauth4webapi": "^3.8.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@cerberauth/stubidp": "^0.3.1",
+    "@cerberauth/stubidp-playwright": "^0.1.1",
+    "@playwright/test": "^1.61.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^5",
+    "typescript": "^5",
+    "vite": "^7"
+  },
+  "allowScripts": {
+    "esbuild": true,
+    "better-sqlite3": true
+  }
+}

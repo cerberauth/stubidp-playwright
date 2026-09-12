@@ -76,10 +76,10 @@ High-level helper. Resolves whatever prompts stubidp shows (login, consent) and 
 Use these when you need to assert between steps:
 
 ```ts
-const idp = new StubIdp(page)
-await idp.login({ username: 'alice' })
+const stubidp = new StubIdp(page)
+await stubidp.login({ username: 'alice' })
 await expect(page.locator('#consent-screen')).toBeVisible()
-await idp.allow()
+await stubidp.allow()
 ```
 
 | Method            | Description                                               |
@@ -124,6 +124,10 @@ The helper is coupled to stubidp's rendered markup. Stable anchors (current):
 When stubidp adds `data-testid` attributes (`stubidp-login-form`, `stubidp-username`, etc.) the helper will prefer them automatically via a fallback chain — no consumer change needed.
 
 **Minimum stubidp version:** `0.0.3` (current stable selectors). `data-testid` support: TBD in a follow-up PR.
+
+## Examples
+
+- [`examples/react`](examples/react) — a Vite + React SPA signing in via stubidp, with a Playwright e2e suite using this package.
 
 ## License
 
